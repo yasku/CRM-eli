@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "crm2-eli"
+version = "0.1.0"
+description = "Backend para el sistema de gestión de ventas SalesNexus"
+authors = ["Tu Nombre <tu.email@ejemplo.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11"
+flask = "^2.2.3"
+flask-sqlalchemy = "^3.0.3"
+flask-cors = "^3.0.10"
+flask-restx = "^1.1.0"
+marshmallow = "^3.19.0"
+marshmallow-sqlalchemy = "^0.29.0"
+python-dotenv = "^1.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.1"
+black = "^23.3.0"
+flake8 = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ["py38"]
+include = '\.pyi?$'
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+

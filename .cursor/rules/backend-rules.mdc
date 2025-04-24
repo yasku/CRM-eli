@@ -1,0 +1,161 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Backend Development Rules
+
+## Project Structure
+- All backend code must be in the `/backend` directory
+- Follow the Flask application factory pattern
+- Use blueprints for API organization
+- Maintain separation of concerns (models, views, services)
+- You can review the file [current-working.md](mdc:current-working.md) with the project info, tasks and more.
+
+### Directory Structure
+```
+backend/
+├── app/
+│   ├── __init__.py        # Factory pattern y configuración de Flask (64 líneas)
+│   ├── config.py          # Configuraciones por entorno (80 líneas)
+│   ├── extensions.py      # Inicialización de extensiones Flask (149 líneas)
+│   ├── api/
+│   │   ├── __init__.py   # Registro de blueprints (36 líneas)
+│   │   ├── auth.py       # Endpoints de autenticación (484 líneas)
+│   │   ├── base.py       # Clase base para APIs (352 líneas)
+│   │   ├── customers.py  # API de Clientes (61 líneas)
+│   │   ├── invoices.py   # API de Facturas (236 líneas)
+│   │   ├── orders.py     # API de Pedidos (247 líneas)
+│   │   ├── products.py   # API de Productos (155 líneas)
+│   │   ├── routes.py     # Registro de rutas (26 líneas)
+│   │   └── suppliers.py  # API de Proveedores (123 líneas)
+│   ├── middleware/
+│   │   └── auth.py       # Middleware de autenticación (109 líneas)
+│   ├── models/
+│   │   ├── __init__.py   # Inicialización de modelos (20 líneas)
+│   │   ├── base.py       # Clase base para modelos (33 líneas)
+│   │   ├── customer.py   # Modelo de Cliente (42 líneas)
+│   │   ├── invoice.py    # Modelo de Factura (76 líneas)
+│   │   ├── order.py      # Modelo de Pedido (105 líneas)
+│   │   ├── product.py    # Modelo de Producto (51 líneas)
+│   │   ├── supplier.py   # Modelo de Proveedor (35 líneas)
+│   │   ├── token.py      # Modelos de Token y Sesión (108 líneas)
+│   │   └── user.py       # Modelo de Usuario (63 líneas)
+│   ├── schemas/
+│   │   ├── __init__.py   # Configuración de Marshmallow (29 líneas)
+│   │   ├── customer.py   # Schema de Cliente (52 líneas)
+│   │   ├── invoice.py    # Schema de Factura (113 líneas)
+│   │   ├── order.py      # Schema de Pedido (110 líneas)
+│   │   ├── product.py    # Schema de Producto (72 líneas)
+│   │   ├── supplier.py   # Schema de Proveedor (59 líneas)
+│   │   └── user.py       # Schema de Usuario (83 líneas)
+│   ├── services/         # Directorio vacío
+│   └── utils/
+│       ├── auth.py       # Utilidades de autenticación (65 líneas)
+│       ├── errors.py     # Manejo de errores (94 líneas)
+│       ├── logger.py     # Configuración de logging (75 líneas)
+│       └── responses.py  # Respuestas API estandarizadas (146 líneas)
+├── instance/            # Directorio para datos de instancia
+├── migrations/
+│   ├── versions/
+│   │   └── 73eb43acba4e_initial_migration.py  # Migración inicial (131 líneas)
+│   ├── env.py          # Configuración de Alembic (114 líneas)
+│   ├── README          # Documentación básica (2 líneas)
+│   ├── alembic.ini     # Configuración de Alembic (51 líneas)
+│   └── script.py.mako  # Plantilla de migraciones (25 líneas)
+├── tests/              # Directorio vacío
+├── .gitignore         # Configuración de Git (136 líneas)
+├── alembic.ini        # Configuración global de Alembic (117 líneas)
+├── poetry.lock        # Lock file de dependencias (1566 líneas)
+├── pyproject.toml     # Configuración de Poetry (61 líneas)
+├── README.md          # Documentación principal (74 líneas)
+├── requirements.txt   # Dependencias legacy (50 líneas)
+├── run.py            # Script de ejecución (12 líneas)
+└── wsgi.py           # Punto de entrada WSGI (7 líneas)
+```
+
+## Code Style Guidelines
+- Follow PEP 8 style guide
+- Use Black for code formatting (line length: 88)
+- Use isort for import sorting (profile: black)
+- Use type hints where possible
+- Document all functions and classes with docstrings
+- Modules, Scripts or Components files should be develop up to 200 lines per scripts or file.
+
+## Logging Standards
+- Use structured JSON logging
+- Include request context in logs
+- Use appropriate log levels:
+  - DEBUG: Detailed information for debugging
+  - INFO: General operational events
+  - WARNING: Unexpected but handled events
+  - ERROR: Errors that need attention
+  - CRITICAL: System-critical issues
+
+## Error Handling
+- Use custom exception classes
+- Implement global error handlers
+- Return standardized error responses
+- Log all errors appropriately
+
+## API Standards
+- Use RESTful conventions
+- Version APIs appropriately
+- Use consistent response formats
+- Implement proper validation
+- Use proper HTTP status codes
+
+## Database
+- Use SQLAlchemy for database operations
+- Implement models with proper relationships
+- Use migrations for schema changes
+- Follow naming conventions for tables and columns
+
+## Testing
+- Write unit tests for all components
+- Use pytest for testing
+- Maintain high test coverage
+- Mock external dependencies
+
+## Security
+- Follow security best practices
+- Implement proper authentication
+- Use environment variables for sensitive data
+- Implement rate limiting
+- Configure CORS properly
+
+## Development Workflow
+- Use Poetry for dependency management
+- Run tests before commits
+- Format code before commits
+- Follow Git commit message conventions
+
+## Documentation
+- Document all APIs
+- Keep README.md updated
+- Document configuration options
+- Include setup instructions
+
+## Environment Configuration
+- Use environment-specific config files
+- Use .env files for local development
+- Never commit sensitive data
+- Document all configuration options
+
+## Performance
+- Implement caching where appropriate
+- Monitor database query performance
+- Use appropriate indexing
+- Implement rate limiting
+
+## Dependency Management
+- Use Poetry for Python dependencies
+- Pin exact versions for stability
+- Regular security updates
+- Document dependency changes
+
+## Monitoring and Logging
+- Implement structured logging
+- Use appropriate log levels
+- Configure log rotation
+- Include relevant context in logs 

@@ -1,0 +1,366 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Frontend Development Rules
+
+## Related Documentation
+- Backend Development Rules: [backend-rules.mdc](mdc:.cursor/rules/backend-rules.mdc)
+  - Consultar para información sobre:
+    - Formatos de respuesta de API
+    - Endpoints disponibles
+    - Manejo de autenticación
+    - Estructuras de datos
+    - Validaciones del servidor
+
+## Project Structure Guidelines
+- All frontend code must be in the `client/` directory
+- Follow React + TypeScript best practices
+- Maintain modular architecture for better maintainability
+- Keep components under 200 lines of code
+- Follow the established directory structure:
+```
+client/
+├── src/
+│   ├── components/         # Componentes reutilizables
+│   │   ├── layout/        # Componentes de layout
+│   │   ├── dashboard/     # Componentes específicos del dashboard
+│   │   └── ui/           # Componentes de UI genéricos
+│   ├── pages/            # Componentes de página
+│   │   ├── dashboard.tsx    # Dashboard principal
+│   │   ├── products.tsx     # Gestión de productos
+│   │   ├── customers.tsx    # Lista de clientes
+│   │   ├── customer-detail.tsx  # Detalle de cliente
+│   │   ├── clients.tsx      # Lista de clientes
+│   │   ├── client-detail.tsx    # Detalle de cliente
+│   │   ├── sales.tsx       # Gestión de ventas
+│   │   ├── invoices.tsx    # Gestión de facturas
+│   │   ├── orders.tsx      # Gestión de pedidos
+│   │   ├── reports.tsx     # Reportes y análisis
+│   │   ├── profile.tsx     # Perfil de usuario
+│   │   └── settings.tsx    # Configuración
+│   ├── lib/              # Utilidades y configuraciones
+│   │   ├── queryClient.ts  # Configuración de React Query
+│   │   └── utils.ts       # Utilidades generales
+│   ├── hooks/            # Custom hooks
+│   ├── App.tsx          # Componente principal y rutas
+│   └── main.tsx         # Punto de entrada
+├── index.html
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── tailwind.config.ts
+├── theme.json
+├── tsconfig.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+## Build Configuration
+
+### Vite Configuration
+- Use the project's established Vite plugins:
+  ```typescript
+  - @vitejs/plugin-react
+  - @replit/vite-plugin-shadcn-theme-json
+  - @replit/vite-plugin-runtime-error-modal
+  ```
+- Follow the alias paths configuration:
+  ```typescript
+  {
+    "@": "./client/src/*",
+    "@shared": "./shared/*",
+    "@assets": "./attached_assets/*"
+  }
+  ```
+- Build output should target `dist/public` directory
+- Use environment-specific plugins based on NODE_ENV
+
+### TypeScript Configuration
+- Use the project's established TypeScript settings:
+  ```json
+  {
+    "module": "ESNext",
+    "strict": true,
+    "jsx": "preserve",
+    "moduleResolution": "bundler",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./client/src/*"],
+      "@shared/*": ["./shared/*"]
+    }
+  }
+  ```
+- Maintain strict type checking
+- Use proper module resolution
+- Follow the established import alias patterns
+
+### Package Dependencies
+- Core Dependencies:
+  - React 18.x with TypeScript
+  - TanStack Query v5 for data fetching
+  - Radix UI components for accessibility
+  - React Hook Form with Zod validation
+  - Wouter for routing
+  - Date-fns for date manipulation
+  - Recharts for data visualization
+
+- UI Dependencies:
+  - TailwindCSS with custom configuration
+  - Class Variance Authority for component variants
+  - Tailwind Merge for class name merging
+  - Lucide React for icons
+  - Framer Motion for animations
+
+### TailwindCSS Standards
+- Follow the project's theme configuration:
+  ```typescript
+  - Use CSS variables for colors
+  - Follow the established border radius system
+  - Use the defined color palette:
+    - background/foreground
+    - card variants
+    - primary/secondary
+    - muted/accent
+    - destructive
+    - sidebar variants
+  ```
+- Use the established animation classes:
+  ```css
+  - animate-accordion-down
+  - animate-accordion-up
+  ```
+- Follow the typography plugin guidelines
+- Use the defined spacing and layout system
+
+### Theme Configuration
+- Support both light and dark modes
+- Use the established theme variables:
+  ```json
+  {
+    "variant": "vibrant",
+    "primary": "hsl(252, 95%, 60%)",
+    "appearance": "dark",
+    "radius": 0.5
+  }
+  ```
+- Maintain consistent color schemes across components
+
+## Component Development Rules
+### General Guidelines
+- Use functional components with hooks
+- Implement proper error boundaries
+- Follow component composition patterns
+- Use TypeScript for type safety
+- Keep components focused and single-responsibility
+- Document all components with JSDoc comments
+- Always review the [current-working.md](mdc:current-working.md) file with the project info and tasks to do.
+- Update [current-working.md](mdc:current-working.md) once you have finish with one task.
+- Update [changes.md](mdc:changes.md) once you have finish with one task.
+
+### Component Structure
+```typescript
+// Component template
+import { type FC } from 'react'
+import { useQuery } from '@tanstack/react-query'
+
+interface ComponentProps {
+  // Props interface
+}
+
+export const Component: FC<ComponentProps> = ({ prop1, prop2 }) => {
+  // Hooks at the top
+  // Business logic
+  // Render
+}
+```
+
+### State Management
+- Use React Query for server state
+- Use local state for UI-only state
+- Implement proper loading states
+- Handle errors consistently
+- Cache responses appropriately
+
+### Component Styling
+- Use TailwindCSS utility classes consistently
+- Follow the project's color system:
+  ```typescript
+  className="bg-background text-foreground"
+  className="bg-card text-card-foreground"
+  className="bg-primary text-primary-foreground"
+  ```
+- Use the established spacing scale
+- Implement responsive design using Tailwind breakpoints
+- Use the animation classes for transitions
+
+### Form Components
+- Use the established form components:
+  ```typescript
+  import { useForm } from "react-hook-form"
+  import { zodResolver } from "@hookform/resolvers/zod"
+  import * as z from "zod"
+  ```
+- Implement consistent validation patterns
+- Use the project's established input components
+- Follow accessibility guidelines with Radix UI
+
+## API Integration Rules
+### Request Handling
+- Use the centralized `apiRequest` utility for all API calls
+- Handle authentication consistently
+- Implement proper error handling
+- Use TypeScript types for request/response data
+
+### React Query Usage
+```typescript
+// Query example
+const { data, isLoading, error } = useQuery({
+  queryKey: ['resource', id],
+  queryFn: () => apiRequest('GET', `/api/resource/${id}`),
+  staleTime: 5 * 60 * 1000, // 5 minutes
+})
+
+// Mutation example
+const mutation = useMutation({
+  mutationFn: (data) => apiRequest('POST', '/api/resource', data),
+  onSuccess: () => {
+    queryClient.invalidateQueries(['resource'])
+  },
+})
+```
+
+## Form Handling
+- Use React Hook Form for all forms
+- Implement Zod schemas for validation
+- Handle form errors consistently
+- Show loading states during submission
+- Disable submit buttons when invalid
+
+## Error Handling
+- Implement error boundaries for component errors
+- Use toast notifications for API errors
+- Log errors appropriately
+- Show user-friendly error messages
+- Handle network errors gracefully
+
+## Authentication
+- Use JWT tokens consistently
+- Handle token refresh automatically
+- Implement proper session management
+- Secure sensitive routes
+- Handle unauthorized states
+
+## UI/UX Standards
+- Follow TailwindCSS best practices
+- Use Radix UI for complex components
+- Implement responsive design
+- Ensure accessibility standards
+- Use consistent spacing and typography
+
+## Performance Guidelines
+- Implement code splitting
+- Use proper React Query caching
+- Optimize component re-renders
+- Lazy load routes and components
+- Monitor and optimize bundle size
+
+## Testing Standards
+- Write unit tests for components
+- Test custom hooks thoroughly
+- Implement integration tests
+- Test error scenarios
+- Maintain good test coverage
+
+## Code Style
+```typescript
+// Example component with proper styling
+import { type FC } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { Button } from '@/components/ui/button'
+import { apiRequest } from '@/lib/api'
+import type { Resource } from '@/types'
+
+interface ResourceListProps {
+  category: string
+}
+
+export const ResourceList: FC<ResourceListProps> = ({ category }) => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['resources', category],
+    queryFn: () => apiRequest('GET', `/api/resources?category=${category}`),
+  })
+
+  if (isLoading) return <LoadingSpinner />
+  if (error) return <ErrorMessage error={error} />
+
+  return (
+    <div className="space-y-4">
+      {data.map((resource: Resource) => (
+        <ResourceCard key={resource.id} resource={resource} />
+      ))}
+    </div>
+  )
+}
+```
+
+## Documentation Requirements
+- Document all components with JSDoc
+- Include usage examples
+- Document props and types
+- Explain complex business logic
+- Keep documentation up-to-date
+
+## Development Workflow
+1. Check current task in `current-working.md`
+2. Create/update necessary components
+3. Implement required functionality
+4. Add proper error handling
+5. Write/update tests
+6. Document changes
+7. Update `current-working.md`
+8. Update `changes.md` with the changes made.
+
+## Integration with Backend
+- Match API response formats
+- Use consistent error handling
+- Implement proper CORS handling
+- Handle authentication flows
+- Cache responses appropriately
+
+## Environment Configuration
+- Use environment variables
+- Never commit sensitive data
+- Document all configuration options
+- Use proper development/production configs
+
+## Monitoring and Logging
+- Implement error tracking
+- Log important events
+- Monitor performance
+- Track user interactions
+- Handle analytics appropriately
+
+## Development Tools
+- Required VS Code Extensions:
+  - TypeScript and JavaScript
+  - Tailwind CSS IntelliSense
+  - ESLint
+  - Prettier
+  - PostCSS Language Support
+
+## Scripts and Commands
+- Development: `npm run dev`
+- Type checking: `npm run check`
+- Build: `npm run build`
+- Production start: `npm run start`
+
+## Performance Optimization
+- Follow the established bundle optimization:
+  - Code splitting with dynamic imports
+  - Proper tree shaking
+  - Asset optimization
+  - CSS purging
+- Use React.lazy for route-based code splitting
+- Implement proper caching strategies with React Query 

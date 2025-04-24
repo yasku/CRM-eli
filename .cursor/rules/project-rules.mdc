@@ -1,0 +1,91 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Code Guidelines:
+- Use the same structure and guidelines as the rest of the project.
+- Use the same imports and functions as the rest of the project.
+- Use the same variables and constants as the rest of the project.
+- Use the same error handling as the rest of the project.
+- Modules, Scripts or Components files should be develop up to 200 lines per scripts or file.
+- You should not run commands, instruct the user to do it.
+
+# Global Development Guidelines:
+- Follow a consistent coding style across the project
+- Document all components, functions, and APIs
+- Use modular architecture for better maintainability
+- Implement proper error handling and logging
+- Use environment variables for configuration
+- Implement continuous integration and deployment
+- Modules, Scripts or Components files should be develop up to 200 lines per scripts or file.
+- You should not run commands, instruct the user to do it.
+
+# Component-Specific Rules:
+## Backend
+See detailed backend development rules in [backend-rules.mdc](mdc:.cursor/rules/backend-rules.mdc)
+
+## Frontend (React + TypeScript + TailwindCSS)
+See detailed backend development rules in [frontend-rules.mdc](mdc:.cursor/rules/frontend-rules.mdc)
+
+# How to Work - Main Instructions:
+1. Check if the [current-working.md](mdc:current-working.md) file exists and review it to understand what we are working on.
+2. If not, create a [current-working.md](mdc:current-working.md) file with the following structure:
+  - Analyze the complete project and include in the [current-working.md](mdc:current-working.md) file a project overview description, libraries used, modules, frameworks, components, process flow, data flow, etc. So it helps you develop according to the project.
+  - Include the user request/plan/modification/intention and elaborate a plan to achieve this for the current project, in the [current-working.md](mdc:current-working.md) file.
+  - Transform this plan into tasks and subtasks to complete the plan. These tasks should be ordered in the right way according to the project structure, so not to touch or do something before something more important or high core task. This should be included in the [current-working.md](mdc:current-working.md) file.
+  - Include the instructions for working with "tasks", as it's explained in the next instruction.
+3. You must work on one task at a time, so you will be updating the progress every time you finish with a task and before starting working on something to see what's the next task.
+4. Always check the [current-working.md](mdc:current-working.md) file to get information about the project, the current development, the plan, the tasks, and whatever information extra you need, you can ask the user to answer your doubts.
+5. Create a [changes.md](mdc:changes.md) file with recent changes, you can use a script that parses your version control system's commit history and formats it into a Markdown file. This file should include a summary of changes, new features, bug fixes, and any breaking changes. Changes should be add at the end of the file, no overwritting or deleting nothing on this file.
+
+For the [current-working.md](mdc:current-working.md) file, here's a suggested structure:
+
+```markdown
+# Current Work in Progress
+
+## Code Guidelines:
+Include the code guidelines, the tasks method for working, etc. mentioned in the project rules.
+
+## Project Overview
+Brief description of the project and its goals.
+
+## Current Focus
+Description of what we are currently working on, as requested by the user.
+
+## Phases and Tasks
+
+### Phase 1: Project Setup and Planning
+- [x] Set up project structure
+- [x] Define project requirements
+- [x] Create initial project documentation
+
+### Phase 2: Core Functionality Development
+- [ ] Implement user authentication
+  - [ ] Design authentication flow
+  - [ ] Implement login functionality
+  - [ ] Implement registration functionality
+- [ ] Develop main application features
+  - [ ] Feature 1
+    - [ ] Subtask 1.1
+    - [ ] Subtask 1.2
+  - [ ] Feature 2
+    - [ ] Subtask 2.1
+    - [ ] Subtask 2.2
+
+### Phase 3: UI/UX Development
+- [ ] Design and implement responsive UI
+- [ ] Implement accessibility features
+
+### Phase 4: Testing and Optimization
+- [ ] Write unit tests for core components
+- [ ] Implement end-to-end testing
+- [ ] Optimize application performance
+
+### Phase 5: Documentation and Deployment
+- [ ] Update project documentation
+- [ ] Prepare for deployment
+- [ ] Deploy to production environment
+```
+
+This structure ensures that tasks are organized in a logical order, promoting a modular approach to development and thorough documentation throughout the project lifecycle. 
