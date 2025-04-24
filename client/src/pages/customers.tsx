@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation } from 'wouter';
 import { Customer } from '@shared/schema';
@@ -21,6 +21,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { formatDate } from '@/lib/utils';
+import CustomerFormDialog from '@/components/customers/CustomerFormDialog';
 
 /**
  * Componente de página de Clientes
@@ -28,15 +29,21 @@ import { formatDate } from '@/lib/utils';
  */
 const Customers: React.FC = () => {
   const [, setLocation] = useLocation();
+  const [showAddDialog, setShowAddDialog] = useState(false);
   
   // Obtener datos de clientes
-  const { data: customersResponse, isLoading } = useQuery<{ success: boolean, data: Customer[] }>({
+  const { data: customersResponse, isLoading, refetch } = useQuery<{ success: boolean, data: Customer[] }>({
     queryKey: ['/api/customers'],
   });
   const customers = customersResponse?.data;
 
   const handleViewCustomer = (customerId: number) => {
     setLocation(`/customers/${customerId}`);
+  };
+  
+  const handleAddSuccess = () => {
+    // Actualizar la lista de clientes después de añadir uno nuevo
+    refetch();
   };
 
   return (
@@ -47,7 +54,10 @@ const Customers: React.FC = () => {
           <h1 className="text-2xl font-semibold text-white">Clientes</h1>
           <p className="text-gray-400 mt-1">Administra tu base de datos de clientes</p>
         </div>
-        <Button className="bg-purple-600 hover:bg-purple-700">
+        <Button 
+          className="bg-purple-600 hover:bg-purple-700"
+          onClick={() => setShowAddDialog(true)}
+        >
           <UserPlus className="mr-2 h-4 w-4" />
           Añadir Nuevo Cliente
         </Button>
@@ -183,6 +193,13 @@ const Customers: React.FC = () => {
           )}
         </CardContent>
       </Card>
+      
+      {/* Modal para añadir nuevo cliente */}
+      <CustomerFormDialog 
+        open={showAddDialog}
+        onOpenChange={setShowAddDialog}
+        onSuccess={handleAddSuccess}
+      />
     </div>
   );
 };
